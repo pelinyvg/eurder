@@ -3,7 +3,6 @@ package com.switchfully.eurder.domain.users.admin;
 import com.switchfully.eurder.domain.users.User;
 import com.switchfully.eurder.domain.users.UserRole;
 import com.switchfully.eurder.infrastructure.exceptions.InvalidEmailException;
-import com.switchfully.eurder.infrastructure.exceptions.InvalidPhoneNumberException;
 
 import java.util.UUID;
 

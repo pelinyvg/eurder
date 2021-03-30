@@ -1,4 +1,4 @@
-package com.switchfully.eurder.api.customer;
+package com.switchfully.eurder.api.customers;
 
 import com.switchfully.eurder.domain.users.customers.Customer;
 import com.switchfully.eurder.infrastructure.exceptions.InvalidEmailException;

@@ -1,15 +1,12 @@
-package com.switchfully.eurder.api.customer;
+package com.switchfully.eurder.api.customers;
 
 import com.switchfully.eurder.domain.users.customers.Address;
 import com.switchfully.eurder.domain.users.customers.PhoneNumber;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,7 +40,7 @@ class CustomerControllerTest {
     }*/
 
     @Test
-    public void testAddEmployee() {
+    public void testAddCustomer() {
         CreateCustomerDTO createCustomerDTO = new CreateCustomerDTO("Rick", "Sanchez", "rick@sanchez.com",
                 new Address("universe", "100A", "Universe", "3000"),
                 new PhoneNumber(500, "123456789"));
