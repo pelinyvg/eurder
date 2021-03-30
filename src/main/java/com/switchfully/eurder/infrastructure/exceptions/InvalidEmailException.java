@@ -1,6 +1,6 @@
 package com.switchfully.eurder.infrastructure.exceptions;
 
-public class InvalidEmailException extends RuntimeException {
+public class InvalidEmailException extends Throwable {
     private static final String INVALID_EMAIL = "Invalid Email: ";
 
     public InvalidEmailException(String message) {

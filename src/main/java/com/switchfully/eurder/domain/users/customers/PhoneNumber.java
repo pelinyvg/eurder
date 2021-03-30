@@ -1,10 +1,10 @@
-package com.switchfully.eurder.domain;
+package com.switchfully.eurder.domain.users.customers;
 
 public class PhoneNumber {
     private final int countryCode;
-    private final int number;
+    private final String number;
 
-    public PhoneNumber(int countryCode, int number) {
+    public PhoneNumber(int countryCode, String number) {
         this.countryCode = countryCode;
         this.number = number;
     }
@@ -13,11 +13,11 @@ public class PhoneNumber {
         return countryCode;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
     public String getPhoneNumber() {
-        return "+" + countryCode + " " + number;
+        return "+" + countryCode + number;
     }
 }

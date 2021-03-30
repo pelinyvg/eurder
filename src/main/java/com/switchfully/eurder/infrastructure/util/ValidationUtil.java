@@ -1,5 +1,7 @@
 package com.switchfully.eurder.infrastructure.util;
 
+import com.switchfully.eurder.domain.users.customers.PhoneNumber;
+
 import java.util.regex.Pattern;
 
 public final class ValidationUtil {
@@ -21,5 +23,11 @@ public final class ValidationUtil {
         String regex = "^(.+)@(.+)$";
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(email).matches();
+    }
+
+    public static boolean isPhoneNumberValid(PhoneNumber phoneNumber) {
+        String regex = "^\\+(?:[0-9] ?){6,14}[0-9]$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(phoneNumber.getPhoneNumber()).matches();
     }
 }
