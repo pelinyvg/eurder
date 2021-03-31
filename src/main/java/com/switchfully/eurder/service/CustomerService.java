@@ -7,6 +7,8 @@ import com.switchfully.eurder.infrastructure.exceptions.InvalidEmailException;
 import com.switchfully.eurder.infrastructure.exceptions.InvalidPhoneNumberException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
@@ -35,5 +37,9 @@ public class CustomerService {
         return customerRepository.getCustomers().stream()
                 .map(Customer::getPhoneNumber)
                 .anyMatch(e -> e.equals(phoneNumber));
+    }
+
+    public List<Customer> getAllCustomers() {
+        return customerRepository.getCustomers();
     }
 }
