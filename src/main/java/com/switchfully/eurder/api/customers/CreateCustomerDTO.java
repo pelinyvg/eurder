@@ -37,4 +37,15 @@ public class CreateCustomerDTO {
     public PhoneNumber getPhoneNumber() {
         return phoneNumber;
     }
+
+    @Override
+    public String toString() {
+        return "CreateCustomerDTO{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", address=" + address +
+                ", phoneNumber=" + phoneNumber +
+                '}';
+    }
 }

@@ -5,9 +5,11 @@ import com.switchfully.eurder.domain.users.customers.CustomerRepository;
 import com.switchfully.eurder.domain.users.customers.PhoneNumber;
 import com.switchfully.eurder.infrastructure.exceptions.InvalidEmailException;
 import com.switchfully.eurder.infrastructure.exceptions.InvalidPhoneNumberException;
+import com.switchfully.eurder.infrastructure.util.ValidationUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CustomerService {
@@ -41,5 +43,15 @@ public class CustomerService {
 
     public List<Customer> getAllCustomers() {
         return customerRepository.getCustomers();
+    }
+
+    public Customer getCustomer(UUID id) {
+        Customer customer = customerRepository.getCustomerById(id);
+
+        if (ValidationUtil.isNull(customer)) {
+            throw new IllegalArgumentException("Customer with the given id does not exist in database!");
+        }
+
+        return customer;
     }
 }
