@@ -6,13 +6,13 @@ public class CreateItemDTO {
     private final String name;
     private final String description;
     private final Price price;
-    private final double amount;
+    private final int stock;
 
-    public CreateItemDTO(String name, String description, Price price, double amount) {
+    public CreateItemDTO(String name, String description, Price price, int stock) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.amount = amount;
+        this.stock = stock;
     }
 
     public String getName() {
@@ -27,7 +27,7 @@ public class CreateItemDTO {
         return price;
     }
 
-    public double getAmount() {
-        return amount;
+    public int getStock() {
+        return stock;
     }
 }

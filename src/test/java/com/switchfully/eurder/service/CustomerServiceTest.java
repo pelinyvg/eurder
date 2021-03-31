@@ -18,6 +18,9 @@ class CustomerServiceTest {
     Address address = new Address("Street", "30A", "City", "BE3082");
     PhoneNumber phoneNumber = new PhoneNumber(32, "1236458846");
 
+    CustomerServiceTest() throws InvalidEmailException, InvalidPhoneNumberException {
+    }
+
     @Test
     void shouldCreateCustomer() throws InvalidPhoneNumberException, InvalidEmailException {
         customer = new Customer("firstname", "lastname", "email@address.com", address, phoneNumber);

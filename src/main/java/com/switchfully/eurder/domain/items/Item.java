@@ -9,18 +9,25 @@ public class Item {
     private final String name;
     private final String description;
     private final Price price;
-    private final double amount;
+    private int stock;
 
-    public Item(String name, String description, Price price, double amount) {
-        this.id = UUID.randomUUID();
+    public Item(String name, String description, Price price) {
+        this(name, description, price, 0);
+    }
+
+    public Item(UUID id, String name, String description, Price price, int stock) {
+        this.id = id;
         ValidationUtil.throwExceptionIfNull(name, "Name");
         this.name = name;
         ValidationUtil.throwExceptionIfNull(description, "Description");
         this.description = description;
         ValidationUtil.throwExceptionIfNull(price, "Price");
         this.price = price;
-        ValidationUtil.throwExceptionIfNull(amount, "Amount");
-        this.amount = amount;
+        this.stock = stock;
+    }
+
+    public Item(String name, String description, Price price, int stock) {
+        this(UUID.randomUUID(), name, description, price, stock);
     }
 
     public String getName() {
@@ -35,8 +42,12 @@ public class Item {
         return price;
     }
 
-    public double getAmount() {
-        return amount;
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public UUID getId() {
