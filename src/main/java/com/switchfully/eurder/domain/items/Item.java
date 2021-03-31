@@ -6,9 +6,9 @@ import java.util.UUID;
 
 public class Item {
     private final UUID id;
-    private final String name;
-    private final String description;
-    private final Price price;
+    private String name;
+    private String description;
+    private Price price;
     private int stock;
 
     public Item(String name, String description, Price price) {
@@ -52,5 +52,17 @@ public class Item {
 
     public UUID getId() {
         return id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(Price price) {
+        this.price = price;
     }
 }

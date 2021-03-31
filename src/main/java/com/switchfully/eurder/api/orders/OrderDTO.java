@@ -6,9 +6,9 @@ import com.switchfully.eurder.domain.users.customers.Customer;
 import java.util.List;
 
 public class OrderDTO {
-    private List<OrderItem> orderItems;
-    private Customer customer;
-    private double totalPrice;
+    private final List<OrderItem> orderItems;
+    private final Customer customer;
+    private final double totalPrice;
 
     public OrderDTO(List<OrderItem> orderItems, Customer customer, double totalPrice) {
         this.orderItems = orderItems;
@@ -16,7 +16,7 @@ public class OrderDTO {
         this.totalPrice = totalPrice;
     }
 
-    public List<OrderItem> getItemGroups() {
+    public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 

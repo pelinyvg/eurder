@@ -2,7 +2,10 @@ package com.switchfully.eurder.service;
 
 import com.switchfully.eurder.domain.items.Item;
 import com.switchfully.eurder.domain.items.ItemRepository;
+import com.switchfully.eurder.infrastructure.util.ValidationUtil;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class ItemService {
@@ -14,5 +17,17 @@ public class ItemService {
 
     public void createItem(Item item) {
         repository.saveItem(item);
+    }
+
+    public Item getItemById(UUID id) {
+        Item item = repository.getItemById(id);
+        if (ValidationUtil.isNull(item)) {
+            throw new IllegalArgumentException("No item found!");
+        }
+        return item;
+    }
+
+    public void updateItem(UUID id, Item item) {
+        repository.updateItem(id, item);
     }
 }

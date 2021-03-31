@@ -16,7 +16,7 @@ public class Order {
         this.id = UUID.randomUUID();
     }
 
-    public List<OrderItem> getItemGroups() {
+    public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 

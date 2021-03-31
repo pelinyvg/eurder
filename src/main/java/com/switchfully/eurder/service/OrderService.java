@@ -29,13 +29,13 @@ public class OrderService {
         Order orderToCreate = orderRepository.addNewOrder(order);
         Customer customer = customerRepository.getCustomerById(customerId);
         orderToCreate.setCustomer(customer);
-        orderToCreate.getItemGroups().forEach(this::setShippingDate);
+        orderToCreate.getOrderItems().forEach(this::setShippingDate);
         setStockForEachItemAfterOrdering(orderToCreate);
         return calculateTotalPrice(order);
     }
 
     private void setStockForEachItemAfterOrdering(Order orderToCreate) {
-        for (OrderItem orderItem : orderToCreate.getItemGroups()) {
+        for (OrderItem orderItem : orderToCreate.getOrderItems()) {
             Item item = itemRepository.getItemById(orderItem.getItemId());
             item.setStock(item.getStock() - orderItem.getAmount());
         }
@@ -50,10 +50,10 @@ public class OrderService {
     }
 
     private double calculateTotalPrice(Order order) {
-        return order.getItemGroups().stream()
-                .map(orderItem -> itemRepository.getItemById(orderItem.getItemId()))
-                .map(Item::getPrice)
-                .map(Price::getPriceNumber)
-                .reduce(Double::sum).orElseThrow();
+        double cost = 0;
+        for (OrderItem orderItem : order.getOrderItems()) {
+            cost += (orderItem.getAmount() * itemRepository.getItemById(orderItem.getItemId()).getPrice().getPriceNumber());
+        }
+        return cost;
     }
 }

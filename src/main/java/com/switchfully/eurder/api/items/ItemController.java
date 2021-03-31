@@ -5,6 +5,8 @@ import com.switchfully.eurder.service.SecurityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/items")
 public class ItemController {
@@ -26,4 +28,12 @@ public class ItemController {
         securityService.throwExceptionIfNotAdmin(userId);
         itemService.createItem(itemMapper.mapCreateItemDTOToItem(createItemDTO));
     }
+
+    @PutMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void updateItem(@RequestBody UpdateItemDTO updateItemDTO, @PathVariable UUID id, @RequestHeader(value = "Authorization", required = false) String userId) throws IllegalAccessException {
+        securityService.throwExceptionIfNotAdmin(userId);
+        itemService.updateItem(id, itemMapper.mapUpdateItemDTOToItem(updateItemDTO, id));
+    }
+
 }

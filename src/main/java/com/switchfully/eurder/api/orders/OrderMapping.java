@@ -13,11 +13,11 @@ public class OrderMapping {
     }
 
     public CreateOrderDTO mapToCreateOrderDTO(Order order) {
-        return new CreateOrderDTO(order.getItemGroups(), order.getCustomer().getId());
+        return new CreateOrderDTO(order.getOrderItems(), order.getCustomer().getId());
     }
 
     public OrderDTO mapToOrderDTO(Order order, double totalPrice) {
-        return new OrderDTO(order.getItemGroups(), order.getCustomer(), totalPrice);
+        return new OrderDTO(order.getOrderItems(), order.getCustomer(), totalPrice);
     }
 
     public Order mapToOrder(CreateOrderDTO createOrderDto) {
