@@ -36,7 +36,6 @@ class CustomerControllerTest {
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.CREATED.value());
-
     }*/
 
     @Test

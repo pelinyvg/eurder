@@ -5,7 +5,7 @@ import com.switchfully.eurder.domain.users.customers.PhoneNumber;
 import java.util.regex.Pattern;
 
 public final class ValidationUtil {
-    private static boolean isNull(Object object) {
+    public static boolean isNull(Object object) {
         return object == null;
     }
 
