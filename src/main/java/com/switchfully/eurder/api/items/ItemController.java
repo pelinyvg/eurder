@@ -1,7 +1,10 @@
 package com.switchfully.eurder.api.items;
 
+import com.switchfully.eurder.api.customers.CustomerController;
 import com.switchfully.eurder.service.ItemService;
 import com.switchfully.eurder.service.SecurityService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +13,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/items")
 public class ItemController {
+    final static Logger logger = LoggerFactory.getLogger(ItemController.class);
     private final ItemService itemService;
     private final ItemMapper itemMapper;
     private final SecurityService securityService;
@@ -27,6 +31,7 @@ public class ItemController {
             throws IllegalAccessException {
         securityService.throwExceptionIfNotAdmin(userId);
         itemService.createItem(itemMapper.mapCreateItemDTOToItem(createItemDTO));
+        logger.info("New item is created: " + createItemDTO.toString());
     }
 
     @PutMapping(path = "/{id}")
@@ -34,6 +39,7 @@ public class ItemController {
     public void updateItem(@RequestBody UpdateItemDTO updateItemDTO, @PathVariable UUID id, @RequestHeader(value = "Authorization", required = false) String userId) throws IllegalAccessException {
         securityService.throwExceptionIfNotAdmin(userId);
         itemService.updateItem(id, itemMapper.mapUpdateItemDTOToItem(updateItemDTO, id));
+        logger.info("Item " + updateItemDTO.getName() + " is updated: " + updateItemDTO.toString());
     }
 
 }

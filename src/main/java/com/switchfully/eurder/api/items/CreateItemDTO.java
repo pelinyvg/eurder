@@ -30,4 +30,14 @@ public class CreateItemDTO {
     public int getStock() {
         return stock;
     }
+
+    @Override
+    public String toString() {
+        return "CreateItemDTO{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", stock=" + stock +
+                '}';
+    }
 }

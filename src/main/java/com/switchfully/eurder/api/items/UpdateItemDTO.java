@@ -30,4 +30,14 @@ public class UpdateItemDTO {
     public int getStock() {
         return stock;
     }
+
+    @Override
+    public String toString() {
+        return "UpdateItemDTO{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", stock=" + stock +
+                '}';
+    }
 }
