@@ -1,5 +1,6 @@
 package com.switchfully.eurder.api.orders;
 
+import com.switchfully.eurder.api.orders.dtos.*;
 import com.switchfully.eurder.domain.items.ItemRepository;
 import com.switchfully.eurder.domain.orders.Order;
 import com.switchfully.eurder.domain.orders.OrderItem;
@@ -7,7 +8,6 @@ import com.switchfully.eurder.domain.users.customers.CustomerRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component

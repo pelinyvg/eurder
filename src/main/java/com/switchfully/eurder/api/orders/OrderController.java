@@ -1,5 +1,7 @@
 package com.switchfully.eurder.api.orders;
 
+import com.switchfully.eurder.api.orders.dtos.CreateOrderDTO;
+import com.switchfully.eurder.api.orders.dtos.OrderDTO;
 import com.switchfully.eurder.service.OrderService;
 import com.switchfully.eurder.service.SecurityService;
 import org.springframework.http.HttpStatus;

@@ -1,5 +1,7 @@
 package com.switchfully.eurder.api.exceptions;
 
+import com.switchfully.eurder.infrastructure.exceptions.CustomerHasNoOrderException;
+import com.switchfully.eurder.infrastructure.exceptions.CustomerNotFoundException;
 import com.switchfully.eurder.infrastructure.exceptions.InvalidEmailException;
 import com.switchfully.eurder.infrastructure.exceptions.InvalidPhoneNumberException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,4 +28,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private void invalidPhoneNumberException(InvalidPhoneNumberException exception, HttpServletResponse response) throws IOException {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, exception.getMessage());
     }
+
+    @ExceptionHandler(CustomerHasNoOrderException.class)
+    private void customerWithNoOrderException(CustomerHasNoOrderException exception, HttpServletResponse response) throws IOException {
+        response.sendError(HttpServletResponse.SC_NO_CONTENT, exception.getMessage());
+    }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    private void customerNotFoundException(CustomerNotFoundException exception, HttpServletResponse response) throws IOException {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND, exception.getMessage());
+    }
+
 }
