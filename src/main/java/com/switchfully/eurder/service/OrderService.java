@@ -31,7 +31,9 @@ public class OrderService {
         orderToCreate.setCustomer(customer);
         orderToCreate.getOrderItems().forEach(this::setShippingDate);
         setStockForEachItemAfterOrdering(orderToCreate);
-        return calculateTotalPrice(order);
+        double totalCost = calculateTotalPrice(order);
+        orderToCreate.setTotalPrice(totalCost);
+        return totalCost;
     }
 
     private void setStockForEachItemAfterOrdering(Order orderToCreate) {

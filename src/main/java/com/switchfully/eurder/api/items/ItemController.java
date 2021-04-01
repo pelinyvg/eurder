@@ -36,7 +36,9 @@ public class ItemController {
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateItem(@RequestBody UpdateItemDTO updateItemDTO, @PathVariable UUID id, @RequestHeader(value = "Authorization", required = false) String userId) throws IllegalAccessException {
+    public void updateItem(@RequestBody UpdateItemDTO updateItemDTO,
+                           @PathVariable UUID id,
+                           @RequestHeader(value = "Authorization", required = false) String userId) throws IllegalAccessException {
         securityService.throwExceptionIfNotAdmin(userId);
         itemService.updateItem(id, itemMapper.mapUpdateItemDTOToItem(updateItemDTO, id));
         logger.info("Item " + updateItemDTO.getName() + " is updated: " + updateItemDTO.toString());

@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
     private final SecurityService securityService;
     private final OrderService orderService;
-    private final OrderMapping orderMapping;
+    private final OrderMapper orderMapper;
 
-    public OrderController(SecurityService securityService, OrderService orderService, OrderMapping orderMapping) {
+    public OrderController(SecurityService securityService, OrderService orderService, OrderMapper orderMapper) {
         this.securityService = securityService;
         this.orderService = orderService;
-        this.orderMapping = orderMapping;
+        this.orderMapper = orderMapper;
     }
 
     @PostMapping
@@ -24,7 +24,7 @@ public class OrderController {
                              @RequestHeader(value = "Authorization", required = false) String userId)
             throws IllegalAccessException {
         securityService.throwExceptionIfNotCustomer(userId);
-        double totalPrice = orderService.createOrder(orderMapping.mapToOrder(createOrderDto), createOrderDto.getCustomerId());
-        return orderMapping.mapToOrderDTO(orderMapping.mapToOrder(createOrderDto), totalPrice);
+        double totalPrice = orderService.createOrder(orderMapper.mapToOrder(createOrderDto), createOrderDto.getCustomerId());
+        return orderMapper.mapToOrderDTO(orderMapper.mapToOrder(createOrderDto), totalPrice);
     }
 }
