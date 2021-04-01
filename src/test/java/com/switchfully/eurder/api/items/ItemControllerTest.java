@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class ItemControllerTest {
-    @Value("${server.port}")
+/*    @Value("${server.port}")
     private int port;
 
     @Autowired
@@ -29,5 +29,5 @@ class ItemControllerTest {
         ResponseEntity<String> responseEntity = this.restTemplate
                 .postForEntity("http://localhost:" + port + "/items", createItemDTO, String.class);
         assertEquals(403, responseEntity.getStatusCodeValue());
-    }
+    }*/
 }
