@@ -56,7 +56,7 @@ public class CustomerController {
 
     @GetMapping("/{id}/orders")
     @ResponseStatus(HttpStatus.OK)
-    public ListOrderDTO getAllOrders(@PathVariable String id, @RequestHeader(value = "Authorization", required = false) String userId) throws IllegalAccessException, CustomerNotFoundException, CustomerHasNoOrderException {
+    public ListOrderDTO getAllOrdersFromACustomer(@PathVariable String id, @RequestHeader(value = "Authorization", required = false) String userId) throws IllegalAccessException, CustomerNotFoundException, CustomerHasNoOrderException {
         securityService.throwExceptionIfNotTheCustomer(id, userId);
         List<Order> orderList = service.getOrdersByCustomer(id);
         return orderMapper.mapToOrderDTOList(orderList, service.totalCost(orderList));

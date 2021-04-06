@@ -10,6 +10,7 @@ public class Item {
     private String description;
     private Price price;
     private int stock;
+    private StockAvailability stockAvailability;
 
     public Item(String name, String description, Price price) {
         this(name, description, price, 0);
@@ -64,5 +65,13 @@ public class Item {
 
     public void setPrice(Price price) {
         this.price = price;
+    }
+
+    public void setStockInfo(StockAvailability stockAvailability) {
+        this.stockAvailability = stockAvailability;
+    }
+
+    public StockAvailability getStockAvailability() {
+        return stockAvailability;
     }
 }

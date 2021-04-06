@@ -1,6 +1,5 @@
 package com.switchfully.eurder.api.items;
 
-import com.switchfully.eurder.api.customers.CustomerController;
 import com.switchfully.eurder.service.ItemService;
 import com.switchfully.eurder.service.SecurityService;
 import org.slf4j.Logger;
@@ -8,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -44,4 +44,10 @@ public class ItemController {
         logger.info("Item " + updateItemDTO.getName() + " is updated: " + updateItemDTO.toString());
     }
 
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<ItemDTO> getOverviewItemsWithStocks(@RequestHeader(value = "Authorization", required = false) String userId, @RequestParam(required = false) Integer filter) throws IllegalAccessException {
+        securityService.throwExceptionIfNotAdmin(userId);
+        return itemMapper.mapToItemDTOList(itemService.getOverviewItems(filter));
+    }
 }

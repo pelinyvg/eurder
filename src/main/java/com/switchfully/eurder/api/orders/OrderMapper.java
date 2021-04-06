@@ -32,7 +32,6 @@ public class OrderMapper {
         return new OrderItemDTO(itemRepository.getItemById(orderItem.getItemId()).getName(), orderItem.getAmount());
     }
 
-
     public Order mapToOrder(CreateOrderDTO createOrderDto) {
         return new Order(customerRepository.getCustomerById(createOrderDto.getCustomerId()), createOrderDto.getOrderItems());
     }

@@ -3,9 +3,15 @@ package com.switchfully.eurder.domain.items;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Repository
 public class ItemRepository {
+    private final static Predicate<Item> STOCK_LOW = item -> item.getStock() < 5;
+    private final static Predicate<Item> STOCK_MEDIUM = item -> item.getStock() < 10;
+    private final static Predicate<Item> STOCK_HIGH = item -> item.getStock() >= 10;
+
     private final Map<UUID, Item> itemRepo;
 
     public ItemRepository() {
@@ -29,5 +35,15 @@ public class ItemRepository {
 
     public void updateItem(UUID id, Item item) {
         itemRepo.put(id, item);
+    }
+
+    public List<Item> getItemsByStockAvailability(Integer filter) {
+        itemRepo.values().stream().filter(STOCK_LOW).forEach(item -> item.setStockInfo(StockAvailability.STOCK_LOW));
+        itemRepo.values().stream().filter(STOCK_MEDIUM).forEach(item -> item.setStockInfo(StockAvailability.STOCK_MEDIUM));
+        itemRepo.values().stream().filter(STOCK_HIGH).forEach(item -> item.setStockInfo(StockAvailability.STOCK_HIGH));
+        if (filter == null) {
+            return itemRepo.values().stream().sorted(Comparator.comparing(Item::getStockAvailability)).collect(Collectors.toList());
+        }
+        return itemRepo.values().stream().filter(item -> item.getStockAvailability().ordinal() == filter).collect(Collectors.toList());
     }
 }
