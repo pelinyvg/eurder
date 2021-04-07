@@ -17,6 +17,12 @@ public class Order {
         this.id = UUID.randomUUID();
     }
 
+    public Order(UUID id, Customer customer, List<OrderItem> orderItems) {
+        this.customer = customer;
+        this.orderItems = orderItems;
+        this.id = id;
+    }
+
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }

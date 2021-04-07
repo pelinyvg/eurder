@@ -12,17 +12,17 @@ import com.switchfully.eurder.domain.users.customers.CustomerRepository;
 import com.switchfully.eurder.infrastructure.exceptions.CustomerHasNoOrderException;
 import com.switchfully.eurder.infrastructure.exceptions.CustomerNotFoundException;
 import com.switchfully.eurder.infrastructure.util.ValidationUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
+    private final Logger logger = LoggerFactory.getLogger(OrderService.class);
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
     private final ItemRepository itemRepository;
@@ -101,5 +101,14 @@ public class OrderService {
                         order.getCustomer().getAddress(),
                         calculateTotalPrice(order)))
                 .collect(Collectors.toList());
+    }
+
+    public Order getOrderById(String orderId) {
+        if (ValidationUtil.isUUIDValid(orderId)) {
+            logger.warn("Order repository is being reached. Can throw exception if the id: " + orderId + " does not exist in repository!");
+            Optional<Order> order = Optional.ofNullable(orderRepository.getOrderById(orderId));
+            return order.orElseThrow(IllegalArgumentException::new);
+        }
+        throw new IllegalArgumentException("Order id is not valid!");
     }
 }

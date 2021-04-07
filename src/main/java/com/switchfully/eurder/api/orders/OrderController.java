@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
@@ -53,5 +54,15 @@ public class OrderController {
         securityService.throwExceptionIfNotTheCustomer(customerId, userId);
         List<Order> orderList = orderService.getOrdersByCustomer(customerId);
         return orderMapper.mapToOrderDTOList(orderList, orderService.totalCost(orderList));
+    }
+
+    @PostMapping("/customers/{customerId}/{orderId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public OrderDTO addOrder(@PathVariable("customerId") String customerId,
+                             @PathVariable("orderId") String orderId,
+                             @RequestHeader(value = "Authorization", required = false) String userId) throws IllegalAccessException {
+        securityService.throwExceptionIfNotTheCustomer(customerId, userId);
+        double totalPrice = orderService.createOrder(orderService.getOrderById(orderId), UUID.fromString(customerId));
+        return orderMapper.mapToOrderDTO(orderService.getOrderById(orderId), totalPrice);
     }
 }
