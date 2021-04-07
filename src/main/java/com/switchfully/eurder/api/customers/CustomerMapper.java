@@ -1,5 +1,7 @@
 package com.switchfully.eurder.api.customers;
 
+import com.switchfully.eurder.api.customers.dto.CreateCustomerDTO;
+import com.switchfully.eurder.api.customers.dto.CustomerDTO;
 import com.switchfully.eurder.domain.users.customers.Customer;
 import com.switchfully.eurder.infrastructure.exceptions.InvalidEmailException;
 import com.switchfully.eurder.infrastructure.exceptions.InvalidPhoneNumberException;

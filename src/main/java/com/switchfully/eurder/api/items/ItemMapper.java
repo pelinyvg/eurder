@@ -1,5 +1,8 @@
 package com.switchfully.eurder.api.items;
 
+import com.switchfully.eurder.api.items.dto.CreateItemDTO;
+import com.switchfully.eurder.api.items.dto.ItemDTO;
+import com.switchfully.eurder.api.items.dto.UpdateItemDTO;
 import com.switchfully.eurder.domain.items.Item;
 import com.switchfully.eurder.service.ItemService;
 import org.springframework.stereotype.Component;
@@ -29,11 +32,11 @@ public class ItemMapper {
         return itemToUpdate;
     }
 
-    public ItemDTO mapToItemDTOList(Item item) {
+    public ItemDTO mapToItemDTO(Item item) {
         return new ItemDTO(item.getId().toString(), item.getName(),item.getDescription(),item.getPrice(),item.getStock(),item.getStockAvailability());
     }
 
     public List<ItemDTO> mapToItemDTOList(List<Item> items) {
-        return items.stream().map(this::mapToItemDTOList).collect(Collectors.toList());
+        return items.stream().map(this::mapToItemDTO).collect(Collectors.toList());
     }
 }

@@ -20,6 +20,10 @@ public class OrderMapper {
         this.itemRepository = itemRepository;
     }
 
+    public Order mapToOrder(CreateOrderDTO createOrderDto) {
+        return new Order(customerRepository.getCustomerById(createOrderDto.getCustomerId()), createOrderDto.getOrderItems());
+    }
+
     public OrderDTO mapToOrderDTO(Order order, double totalPrice) {
         return new OrderDTO(order.getOrderItems(), order.getCustomer(), totalPrice);
     }
@@ -28,15 +32,12 @@ public class OrderMapper {
         return new ReportOrderDTO(order.getId(), order.getOrderItems().stream().map(this::mapOrderItemDTO).collect(Collectors.toList()));
     }
 
-    public OrderItemDTO mapOrderItemDTO(OrderItem orderItem) {
-        return new OrderItemDTO(itemRepository.getItemById(orderItem.getItemId()).getName(), orderItem.getAmount());
-    }
-
-    public Order mapToOrder(CreateOrderDTO createOrderDto) {
-        return new Order(customerRepository.getCustomerById(createOrderDto.getCustomerId()), createOrderDto.getOrderItems());
-    }
-
     public ListOrderDTO mapToOrderDTOList(List<Order> orders, double totalPrice) {
         return new ListOrderDTO(orders.stream().map(this::mapToReportOrderDTO).collect(Collectors.toList()), orders.get(0).getCustomer().getId(), totalPrice);
     }
+
+    private OrderItemDTO mapOrderItemDTO(OrderItem orderItem) {
+        return new OrderItemDTO(itemRepository.getItemById(orderItem.getItemId()).getName(), orderItem.getAmount());
+    }
+
 }

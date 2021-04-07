@@ -1,21 +1,27 @@
-package com.switchfully.eurder.api.items;
+package com.switchfully.eurder.api.items.dto;
 
 import com.switchfully.eurder.domain.items.Price;
+import com.switchfully.eurder.domain.items.StockAvailability;
 
-public class CreateItemDTO {
+public class ItemDTO {
+    private final String id;
     private final String name;
     private final String description;
     private final Price price;
     private final int stock;
+    private final StockAvailability stockAvailability;
 
-    public CreateItemDTO(String name,
-                         String description,
-                         Price price,
-                         int stock) {
+    public ItemDTO(String id, String name, String description, Price price, int stock, StockAvailability stockAvailability) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
+        this.stockAvailability = stockAvailability;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -34,13 +40,7 @@ public class CreateItemDTO {
         return stock;
     }
 
-    @Override
-    public String toString() {
-        return "CreateItemDTO{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", stock=" + stock +
-                '}';
+    public StockAvailability getStockAvailability() {
+        return stockAvailability;
     }
 }

@@ -1,4 +1,4 @@
-package com.switchfully.eurder.api.items;
+package com.switchfully.eurder.api.items.dto;
 
 import com.switchfully.eurder.domain.items.Price;
 

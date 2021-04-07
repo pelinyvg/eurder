@@ -1,5 +1,7 @@
 package com.switchfully.eurder.api.customers;
 
+import com.switchfully.eurder.api.customers.dto.CreateCustomerDTO;
+import com.switchfully.eurder.api.customers.dto.CustomerDTO;
 import com.switchfully.eurder.api.orders.dtos.ListOrderDTO;
 import com.switchfully.eurder.api.orders.OrderMapper;
 import com.switchfully.eurder.domain.orders.Order;
@@ -21,22 +23,21 @@ import java.util.UUID;
 @RequestMapping("/customers")
 public class CustomerController {
     final static Logger logger = LoggerFactory.getLogger(CustomerController.class);
-    private final CustomerService service;
+    private final CustomerService customerService;
     private final CustomerMapper mapper;
     private final SecurityService securityService;
-    private final OrderMapper orderMapper;
 
-    public CustomerController(CustomerService service, CustomerMapper mapper, SecurityService securityService, OrderMapper orderMapper) {
-        this.service = service;
+
+    public CustomerController(CustomerService customerService, CustomerMapper mapper, SecurityService securityService) {
+        this.customerService = customerService;
         this.mapper = mapper;
         this.securityService = securityService;
-        this.orderMapper = orderMapper;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createCustomer(@RequestBody CreateCustomerDTO createCustomerDTO) throws InvalidEmailException, InvalidPhoneNumberException {
-        service.createCustomer(mapper.mapCreateCustomerDTOToCustomer(createCustomerDTO));
+        customerService.createCustomer(mapper.mapCreateCustomerDTOToCustomer(createCustomerDTO));
         logger.info("New customer created: " + createCustomerDTO.toString());
     }
 
@@ -44,21 +45,13 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.OK)
     public List<CustomerDTO> getAllCustomers(@RequestHeader(value = "Authorization", required = false) String userId) throws IllegalAccessException {
         securityService.throwExceptionIfNotAdmin(userId);
-        return mapper.mapToDTOList(service.getAllCustomers());
+        return mapper.mapToDTOList(customerService.getAllCustomers());
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CustomerDTO getCustomer(@PathVariable UUID id, @RequestHeader(value = "Authorization", required = false) String userId) throws IllegalAccessException, CustomerNotFoundException {
         securityService.throwExceptionIfNotAdmin(userId);
-        return mapper.mapToDTO(service.getCustomer(id));
-    }
-
-    @GetMapping("/{id}/orders")
-    @ResponseStatus(HttpStatus.OK)
-    public ListOrderDTO getAllOrdersFromACustomer(@PathVariable String id, @RequestHeader(value = "Authorization", required = false) String userId) throws IllegalAccessException, CustomerNotFoundException, CustomerHasNoOrderException {
-        securityService.throwExceptionIfNotTheCustomer(id, userId);
-        List<Order> orderList = service.getOrdersByCustomer(id);
-        return orderMapper.mapToOrderDTOList(orderList, service.totalCost(orderList));
+        return mapper.mapToDTO(customerService.getCustomer(id));
     }
 }

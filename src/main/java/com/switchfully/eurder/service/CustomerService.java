@@ -1,11 +1,8 @@
 package com.switchfully.eurder.service;
 
-import com.switchfully.eurder.domain.orders.Order;
-import com.switchfully.eurder.domain.orders.OrderRepository;
 import com.switchfully.eurder.domain.users.customers.Customer;
 import com.switchfully.eurder.domain.users.customers.CustomerRepository;
 import com.switchfully.eurder.domain.users.customers.PhoneNumber;
-import com.switchfully.eurder.infrastructure.exceptions.CustomerHasNoOrderException;
 import com.switchfully.eurder.infrastructure.exceptions.CustomerNotFoundException;
 import com.switchfully.eurder.infrastructure.exceptions.InvalidEmailException;
 import com.switchfully.eurder.infrastructure.exceptions.InvalidPhoneNumberException;
@@ -18,11 +15,9 @@ import java.util.UUID;
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
-    private final OrderRepository orderRepository;
 
-    public CustomerService(CustomerRepository customerRepository, OrderRepository orderRepository) {
+    public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
-        this.orderRepository = orderRepository;
     }
 
     public void createCustomer(Customer customer) throws InvalidPhoneNumberException, InvalidEmailException {
@@ -60,20 +55,5 @@ public class CustomerService {
         return customer;
     }
 
-    public List<Order> getOrdersByCustomer(String id) throws CustomerNotFoundException, CustomerHasNoOrderException {
-        if (!ValidationUtil.isUUIDValid(id) || customerRepository.getCustomerById(UUID.fromString(id)) == null) {
-            throw new CustomerNotFoundException();
-        }
-        List<Order> orders = orderRepository.getOrdersByCustomer(UUID.fromString(id));
-        totalCost(orders);
-        if (orders.size() > 0) {
-            return orders;
-        } else {
-            throw new CustomerHasNoOrderException();
-        }
-    }
 
-    public double totalCost(List<Order> orders) {
-        return orders.stream().map(Order::getTotalPrice).reduce(Double::sum).orElse(0.0);
-    }
 }

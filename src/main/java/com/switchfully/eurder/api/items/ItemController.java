@@ -1,5 +1,8 @@
 package com.switchfully.eurder.api.items;
 
+import com.switchfully.eurder.api.items.dto.CreateItemDTO;
+import com.switchfully.eurder.api.items.dto.ItemDTO;
+import com.switchfully.eurder.api.items.dto.UpdateItemDTO;
 import com.switchfully.eurder.service.ItemService;
 import com.switchfully.eurder.service.SecurityService;
 import org.slf4j.Logger;

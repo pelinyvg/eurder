@@ -1,6 +1,5 @@
 package com.switchfully.eurder.service;
 
-import com.switchfully.eurder.domain.orders.OrderRepository;
 import com.switchfully.eurder.domain.users.customers.Address;
 import com.switchfully.eurder.domain.users.customers.Customer;
 import com.switchfully.eurder.domain.users.customers.CustomerRepository;
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerServiceTest {
     CustomerRepository repository = new CustomerRepository();
-    CustomerService service = new CustomerService(repository, new OrderRepository());
+    CustomerService service = new CustomerService(repository);
     Customer customer;
     Address address = new Address("Street", "30A", "City", "BE3082");
     PhoneNumber phoneNumber = new PhoneNumber(32, "1236458846");
