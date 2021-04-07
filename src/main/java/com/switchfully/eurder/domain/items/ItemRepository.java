@@ -38,12 +38,16 @@ public class ItemRepository {
     }
 
     public List<Item> getItemsByStockAvailability(Integer filter) {
-        itemRepo.values().stream().filter(STOCK_LOW).forEach(item -> item.setStockInfo(StockAvailability.STOCK_LOW));
-        itemRepo.values().stream().filter(STOCK_MEDIUM).forEach(item -> item.setStockInfo(StockAvailability.STOCK_MEDIUM));
-        itemRepo.values().stream().filter(STOCK_HIGH).forEach(item -> item.setStockInfo(StockAvailability.STOCK_HIGH));
+        setStockAvailabilities();
         if (filter == null) {
             return itemRepo.values().stream().sorted(Comparator.comparing(Item::getStockAvailability)).collect(Collectors.toList());
         }
         return itemRepo.values().stream().filter(item -> item.getStockAvailability().ordinal() == filter).collect(Collectors.toList());
+    }
+
+    private void setStockAvailabilities() {
+        itemRepo.values().stream().filter(STOCK_HIGH).forEach(item -> item.setStockInfo(StockAvailability.STOCK_HIGH));
+        itemRepo.values().stream().filter(STOCK_MEDIUM).forEach(item -> item.setStockInfo(StockAvailability.STOCK_MEDIUM));
+        itemRepo.values().stream().filter(STOCK_LOW).forEach(item -> item.setStockInfo(StockAvailability.STOCK_LOW));
     }
 }

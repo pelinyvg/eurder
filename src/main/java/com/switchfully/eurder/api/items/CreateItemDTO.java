@@ -8,7 +8,10 @@ public class CreateItemDTO {
     private final Price price;
     private final int stock;
 
-    public CreateItemDTO(String name, String description, Price price, int stock) {
+    public CreateItemDTO(String name,
+                         String description,
+                         Price price,
+                         int stock) {
         this.name = name;
         this.description = description;
         this.price = price;

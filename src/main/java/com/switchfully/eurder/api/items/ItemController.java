@@ -46,7 +46,8 @@ public class ItemController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ItemDTO> getOverviewItemsWithStocks(@RequestHeader(value = "Authorization", required = false) String userId, @RequestParam(required = false) Integer filter) throws IllegalAccessException {
+    public List<ItemDTO> getOverviewItemsWithStocks(@RequestHeader(value = "Authorization", required = false) String userId,
+                                                    @RequestParam(required = false) Integer filter) throws IllegalAccessException {
         securityService.throwExceptionIfNotAdmin(userId);
         return itemMapper.mapToItemDTOList(itemService.getOverviewItems(filter));
     }

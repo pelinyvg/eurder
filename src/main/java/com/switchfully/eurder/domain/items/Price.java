@@ -6,7 +6,8 @@ public class Price {
     private final double priceNumber;
     private final Currency currency;
 
-    public Price(double priceNumber, Currency currency) {
+    public Price(double priceNumber,
+                 Currency currency) {
         this.priceNumber = priceNumber;
         this.currency = currency;
     }
