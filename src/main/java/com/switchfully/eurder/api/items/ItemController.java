@@ -8,6 +8,7 @@ import com.switchfully.eurder.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +28,10 @@ public class ItemController {
         this.securityService = securityService;
     }
 
+    @PreAuthorize("hasAnyAuthority('CREATE_ITEM')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addItem(@RequestBody CreateItemDTO createItemDTO,
-                        @RequestHeader(value = "Authorization", required = false) String userId)
-            throws IllegalAccessException {
-        securityService.throwExceptionIfNotAdmin(userId);
+    public void addItem(@RequestBody CreateItemDTO createItemDTO) {
         itemService.createItem(itemMapper.mapCreateItemDTOToItem(createItemDTO));
         logger.info("New item is created: " + createItemDTO.toString());
     }
